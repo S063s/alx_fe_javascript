@@ -6,7 +6,7 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
 async function fetchQuotesFromServer() {
     quoteDisplay.innerHTML = '<p class="loading">Loading...</p>';
     try {
-        const response = await fetch ('https://type.fit/api/quotes')
+        const response = await fetch ('https://jsonplaceholder.typicode.com/posts')
 
         if (!response.ok) {
             throw new error ('http error ! status')
