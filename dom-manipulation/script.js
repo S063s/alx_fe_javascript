@@ -9,7 +9,6 @@ function showRandomQuote() {
 
 }
 
-
 function createAddQuoteForm() {
     const form = document.createElement('form');
     form.innerHTML = `
@@ -32,8 +31,6 @@ function addQuote(text, category) {
         alert("Both fields are required.");
         return;
     }
-
-    populateCategories(),
 
     alert("quote added successfully");
     showRandomQuote();
@@ -71,7 +68,7 @@ document.getElementById("exportQuotesBtn").addEventListener("click", function ()
     URL.revokeObjectURL(url);
 });
 
-function populateCategories(allCategories) {
+function populateCategories() {
     const allCategories = quotes.map(_quote => _quote.category)
     const uniqueCategories = [...new Set(allCategories)];
     const categoryFilter = document.getElementById("category-filter");
