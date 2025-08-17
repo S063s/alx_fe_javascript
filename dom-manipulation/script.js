@@ -3,6 +3,20 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "be nice to yourself.", category: "self-care" }
 ];
 
+async function fetchquotesfromserver() {
+    quoteDisplay.innerHTML = '<p class="loading">Loading...</p>';
+    try {
+        const response = await fetch ('https://type.fit/api/quotes')
+
+        if (!response.ok) {
+            throw new error ('http error ! status')
+            
+        }
+    } catch (error) {
+        quoteDisplay.innerHTML = `<p class="error">Failed to fetch quotes: ${error.message}</p>`;
+    }
+}
+
 function showRandomQuote() {
       const selectedCategory = categoryFilter.value;
         const filteredQuotes = filterQuotes(selectedCategory);
