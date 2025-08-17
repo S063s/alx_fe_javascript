@@ -3,7 +3,7 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "be nice to yourself.", category: "self-care" }
 ];
 
-async function fetchquotesfromserver() {
+async function fetchQuotesFromServer() {
     quoteDisplay.innerHTML = '<p class="loading">Loading...</p>';
     try {
         const response = await fetch ('https://type.fit/api/quotes')
