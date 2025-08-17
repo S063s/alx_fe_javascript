@@ -1,13 +1,14 @@
-let quotes = JSON.parse(localStorage.getItem('quotes')) || [
+const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "the best way to predict the future is to create it.", category: "inspiration" },
     { text: "be nice to yourself.", category: "self-care" }
 ];
 
 function showRandomQuote() {
     const randomQuote = Math.floor(Math.random() * quotes.length);
-    return quotes[randomQuote].text
+    return quotes[randomQuote]
+
 }
-console.log(showRandomQuote());
+
 
 function createAddQuoteForm() {
     const form = document.createElement('form');
@@ -31,6 +32,11 @@ function addQuote(text, category) {
         alert("Both fields are required.");
         return;
     }
+
+    populateCategories(),
+
+    alert("quote added successfully");
+    showRandomQuote();
     
     const newQuote = { text, category };
     quotes.push(newQuote);
@@ -48,6 +54,7 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+  
 document.getElementById("exportQuotesBtn").addEventListener("click", function () {
     const quotes = JSON.parse(localStorage.getItem("quotes")) || [];
     const jsonString = JSON.stringify(quotes, null, 2);
@@ -63,3 +70,20 @@ document.getElementById("exportQuotesBtn").addEventListener("click", function ()
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 });
+
+function populateCategories(allCategories) {
+    const uniqueCategories = [...new Set(allCategories)];
+    const categoryFilter = document.getElementById("category-filter");
+    categoryFilter.innerHTML = '<option value="all">All</option>';
+
+    uniqueCategories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
+}
+
+
+ 
+

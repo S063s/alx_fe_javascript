@@ -10,6 +10,10 @@
     <div id="quoteDisplay"></div>
     <button id="newQuote">Show New Quote</button>
     <script src="script.js" defer></script>
+    <h2>filter by category</h2>
+    <div>
+      <select name="filter by category" id="category-filter"></select>
+    </div>
   </body>
 <section>
     <div>
@@ -22,5 +26,13 @@
 <div class="exportQuotes">
   <button id="exportQuotesBtn">Export Quotes</button> 
 </div>
+
+<div>
+  <select id="categoryFilter" onchange="filterQuotes()">
+    <option value="all">All Categories</option>
+    <!-- Dynamically populated categories -->
+  </select>
+</div>
 </section>  
+
  </html>
