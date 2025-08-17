@@ -4,9 +4,16 @@ const quotes = JSON.parse(localStorage.getItem('quotes')) || [
 ];
 
 function showRandomQuote() {
-    const randomQuote = Math.floor(Math.random() * quotes.length);
-    return quotes[randomQuote]
+      const selectedCategory = categoryFilter.value;
+        const filteredQuotes = filterQuotes(selectedCategory);
 
+        if (filteredQuotes.length === 0) {
+            quoteDisplay.innerHTML = `<p>No quotes found for this category.</p>`;
+            return;
+        }
+
+        const randomQuote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
+        displayQuote(randomQuote);
 }
 
 function createAddQuoteForm() {
