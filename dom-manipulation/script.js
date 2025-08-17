@@ -1,11 +1,11 @@
-let quotes = {
-    text: "the best way to predict the future is to create it.",
-    text: "be nice to yourself."
-};
+let quotes = [
+    { text: "the best way to predict the future is to create it.", category: "inspiration" },
+    { text: "be nice to yourself.", category: "self-care" }
+];
 
 function showRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.text.length);
-    return quotes.text[randomIndex];
+    const randomQuote = Math.floor(Math.random() * quotes.length);
+    return quotes[randomQuote];
 }
 
 console.log(showRandomQuote());
@@ -26,3 +26,15 @@ function createAddQuoteForm() {
         addQuote(newQuoteText, newQuoteCategory);
     });
 }
+
+function addQuote(text, category) {
+    if (!text || !category) {
+        alert("Both fields are required.");
+        return;
+    }
+    const newQuote = { text, category };
+    quotes.push(newQuote);
+    localStorage.setItem('quotes', JSON.stringify(quotes));
+    alert("Quote added successfully!");
+}
+
