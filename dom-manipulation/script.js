@@ -1,4 +1,4 @@
-let quotes = [
+let quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { text: "the best way to predict the future is to create it.", category: "inspiration" },
     { text: "be nice to yourself.", category: "self-care" }
 ];
@@ -7,8 +7,7 @@ function showRandomQuote() {
     const randomQuote = Math.floor(Math.random() * quotes.length);
     return quotes[randomQuote];
 }
-
-console.log(showRandomQuote());
+showRandomQuote()
 
 function createAddQuoteForm() {
     const form = document.createElement('form');
