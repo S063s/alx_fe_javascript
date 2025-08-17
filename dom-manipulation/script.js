@@ -5,9 +5,9 @@ let quotes = JSON.parse(localStorage.getItem('quotes')) || [
 
 function showRandomQuote() {
     const randomQuote = Math.floor(Math.random() * quotes.length);
-    return quotes[randomQuote];
+    return quotes[randomQuote].text
 }
-showRandomQuote()
+console.log(showRandomQuote());
 
 function createAddQuoteForm() {
     const form = document.createElement('form');
@@ -48,3 +48,29 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+
+function createExportButton() {
+    const button = document.createElement('button');
+    button.textContent = "Export Quotes";
+    document.body.appendChild(button);
+
+    button.addEventListener('click', function() {
+        const storedQuotes = JSON.parse(localStorage.getItem('quotes')) || quotes;
+        const jsonStr = JSON.stringify(storedQuotes, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json" });
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "quotes.json"; 
+        document.body.appendChild(a);
+
+        a.click();
+
+        // Clean up
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+}
+createExportButton();
+  
