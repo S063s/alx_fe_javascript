@@ -72,6 +72,7 @@ document.getElementById("exportQuotesBtn").addEventListener("click", function ()
 });
 
 function populateCategories(allCategories) {
+    const allCategories = quotes.map(_quote => _quote.category)
     const uniqueCategories = [...new Set(allCategories)];
     const categoryFilter = document.getElementById("category-filter");
     categoryFilter.innerHTML = '<option value="all">All</option>';
