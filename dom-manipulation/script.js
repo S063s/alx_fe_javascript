@@ -17,6 +17,21 @@ async function fetchQuotesFromServer() {
     }
 }
 
+async function syncQuotes() {
+        quoteDisplay.innerHTML = '<p class="loading">Loading quotes...</p>';
+        const localQuotes = JSON.parse(localStorage.getItem('quotes')) || [];
+        const serverQuotes = await fetchQuotesFromServer();
+        const mergedQuotes = [...localQuotes];
+        const localTexts = new Set(localQuotes.map(q => q.text));
+        
+        serverQuotes.forEach(serverQuote => {
+            if (!localTexts.has(serverQuote.text)) {
+                mergedQuotes.push(serverQuote);
+            }
+        });
+
+}
+
 function showRandomQuote() {
       const selectedCategory = categoryFilter.value;
         const filteredQuotes = filterQuotes(selectedCategory);
@@ -124,6 +139,7 @@ function populateCategories() {
     });
 }
 
-
- 
+ document.addEventListener('DOMContentLoaded', () => {
+        syncQuotes();
+ });       
 
