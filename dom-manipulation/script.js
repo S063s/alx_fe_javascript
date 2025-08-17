@@ -47,6 +47,27 @@ function createAddQuoteForm() {
     });
 }
 
+async function postQuoteToServer(newQuote) {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(newQuote) 
+        });
+
+        const data = await response.json();
+        console.log('Server response:', data);
+        showMessage("Quote added to server successfully!");
+
+    } catch (error) {
+        console.error('Error posting quote:', error);
+        showMessage("Error adding quote to server.");
+    }
+}
+
+
 function addQuote(text, category) {
     if (!text || !category) {
         alert("Both fields are required.");
