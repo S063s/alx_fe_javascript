@@ -32,9 +32,20 @@ function addQuote(text, category) {
         alert("Both fields are required.");
         return;
     }
+    
     const newQuote = { text, category };
     quotes.push(newQuote);
     localStorage.setItem('quotes', JSON.stringify(quotes));
     alert("Quote added successfully!");
 }
 
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+  }
