@@ -48,5 +48,18 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+document.getElementById("exportQuotesBtn").addEventListener("click", function () {
+    const quotes = JSON.parse(localStorage.getItem("quotes")) || [];
+    const jsonString = JSON.stringify(quotes, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
 
-  
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "quotes.json"; 
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
